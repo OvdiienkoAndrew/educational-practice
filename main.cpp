@@ -1028,7 +1028,22 @@ int main(){
                     if(F_x_.show_function()) F_x_.compress_x(number_K, number_N);
                     if(F_cos_.show_function()) F_cos_.compress_x(number_K, number_N);
                     if(F_sin_.show_function()) F_sin_.compress_x(number_K, number_N);
-                    if(F_rand_.show_function()) F_rand_.compress_x(number_K, number_N);
+                    if(F_rand_.show_function()){ 
+                        F_rand_.compress_x(number_K, number_N);
+                        number_A2 *= number_K;
+                        number_B2 *= number_K;
+
+                        text_assistant_A2 = to_string(number_A2); 
+                        text_assistant_B2 = to_string(number_B2);
+
+                        text_assistant_A2 = trimFloatString(text_assistant_A2);
+                        text_assistant_B2 = trimFloatString(text_assistant_B2);
+                        
+                        ostringstream oss;
+                        oss << "[" << text_assistant_A2 << "; " << text_assistant_B2 << "]";
+                        string result = oss.str();
+                        text_display_written.setString(result);
+                    }
                     if(!F_x_.show_function()&&!F_cos_.show_function()&&!F_sin_.show_function()&&!F_rand_.show_function() || number_N==0) there_is_a_coefficient_but_there_is_no_graph(font);
                 }
                 compress_x.setClicked(false);

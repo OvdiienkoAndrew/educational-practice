@@ -77,12 +77,20 @@ void f_cos::move_y(float y, int n, int move){
 
 void f_cos::compress_x(float x, int n){
     for(int i=0; i<n; i++)
+    {
+        point_coordinates_x[i] -= center_coordinate_point_x;
         point_coordinates_x[i] *= x;
+        point_coordinates_x[i] += center_coordinate_point_x;
+    }
 }
 
 void f_cos::compress_y(float y, int n){
     for(int i=0; i<n; i++)
+    {
+        point_coordinates_y[i] -= center_coordinate_point_y;
         point_coordinates_y[i] *= y;
+        point_coordinates_y[i] += center_coordinate_point_y;
+    }
 }
 
 int f_cos::get_n(){return number_of_points;}

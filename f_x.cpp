@@ -83,12 +83,20 @@ void f_F::move_y(float y, int n, int move){
 
 void f_F::compress_x(float x, int n){
     for(int i=0; i<n; i++)
+    {
+        point_coordinates_x[i] -= center_coordinate_point_x;
         point_coordinates_x[i] *= x;
+        point_coordinates_x[i] += center_coordinate_point_x;
+    }
 }
 
 void f_F::compress_y(float y, int n){
     for(int i=0; i<n; i++)
+    {
+        point_coordinates_y[i] -= center_coordinate_point_y;
         point_coordinates_y[i] *= y;
+        point_coordinates_y[i] += center_coordinate_point_y;
+    }
 }
 
 int f_F::get_n(){return number_of_points;}
