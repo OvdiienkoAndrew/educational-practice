@@ -14,7 +14,7 @@
 #include "Graph_displacement_and_compression.h"
 using namespace sf;
 using namespace std;
-
+#include <fstream>
 
 int main(){
 
@@ -116,6 +116,7 @@ int main(){
     bool click_open_button = false;
     bool click_generate_button = false;
     bool click_about_button = false;
+
 
     string text_assistant_A;
     string text_assistant_B;
@@ -332,7 +333,7 @@ int main(){
     text_display_written.setFillColor(Color::Black);
     text_display_written.setPosition(FUNCTION_GRAPH_WIDTH + 20 +70+ 100 + (USER_INPUT_WIDTH - generate_button.getLocalBounds().width)/2 + (generate_button.getLocalBounds().width - generate_button_text.getLocalBounds().width)/2,345 + 3*50);
 
-    Text user_hint_F_x_move("Move the functions mentioned above", font, 24);
+    Text user_hint_F_x_move("Move and compress", font, 24);
     user_hint_F_x_move.setFillColor(Color::Black);
     user_hint_F_x_move.setStyle(Text::Bold);
     user_hint_F_x_move.setPosition(FUNCTION_GRAPH_WIDTH + 20 +  (USER_INPUT_WIDTH - user_hint_F_x_move.getLocalBounds().width)/2, 345 + 4*50);
@@ -746,9 +747,9 @@ int main(){
 
             if (event.type == Event::TextEntered) {
 
-                if(click_A) text_input_for_A_B_k(event, text_assistant_A, text_display_written_A, number_A);
-                if(click_B) text_input_for_A_B_k(event, text_assistant_B, text_display_written_B, number_B);
-                if(click_N) text_input_for_N(event, text_assistant_N, text_display_written_N, number_N);
+                if(click_A){ text_input_for_A_B_k(event, text_assistant_A, text_display_written_A, number_A); F_x_.show_function(false); F_cos_.show_function(false); F_sin_.show_function(false); F_rand_.show_function(false); click_k = false; click_K = false; }
+                if(click_B){ text_input_for_A_B_k(event, text_assistant_B, text_display_written_B, number_B);  F_x_.show_function(false); F_cos_.show_function(false); F_sin_.show_function(false); F_rand_.show_function(false); click_k = false; click_K = false;}
+                if(click_N){ text_input_for_N(event, text_assistant_N, text_display_written_N, number_N);  F_x_.show_function(false); F_cos_.show_function(false); F_sin_.show_function(false); F_rand_.show_function(false); click_k = false; click_K = false;}
                 if(click_k) text_input_for_A_B_k(event, text_assistant_k, text_display_written_k, number_k);
                 if(click_K) text_input_for_K(event, text_assistant_K, text_display_written_K, number_K);
             }
@@ -895,7 +896,7 @@ int main(){
 
             if(click_generate_button)
             {
-                if(text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 10000) A_B_N_were_not_entered(font);
+                if(text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000 ) A_B_N_were_not_entered(font);
         
                 if(number_A > number_B){
                     the_beginning_is_greater_than_the_end(font);
@@ -921,7 +922,7 @@ int main(){
 
             if(f_x.isClicked())
             {
-                if(F_x_.get_n()==0 || text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000 ) A_B_N_were_not_entered(font);
+                if(F_x_.get_n()!=number_N || text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
                 else{
                 if(F_x_.show_function()) F_x_.show_function(false);
                 else F_x_.show_function(true);
@@ -931,7 +932,7 @@ int main(){
 
             if(f_cos_x.isClicked())
             {
-                if(text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000 || F_cos_.get_n()==0) A_B_N_were_not_entered(font);
+                if(F_cos_.get_n()!=number_N || text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
                 else{
                 if(F_cos_.show_function()) F_cos_.show_function(false);
                 else F_cos_.show_function(true);
@@ -941,7 +942,7 @@ int main(){
 
             if(f_sin_x.isClicked())
             {
-                if(text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000 || F_sin_.get_n()==0) A_B_N_were_not_entered(font);
+                if(F_sin_.get_n()!=number_N || text_assistant_A.empty() || text_assistant_B.empty() || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
                 else{
                 if(F_sin_.show_function()) F_sin_.show_function(false);
                 else F_sin_.show_function(true);
@@ -951,7 +952,7 @@ int main(){
 
             if(f_rand_x.isClicked())
             {
-               if(text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
+               if(F_rand_.get_n()!=number_N || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
                 else{
                 if(F_rand_.show_function()) F_rand_.show_function(false);
                 else F_rand_.show_function(true);

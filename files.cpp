@@ -1,5 +1,7 @@
+// Підключення хедр файлу Files, де написані функції, які треба визначити, надати тіло.
 #include "Files.h"
 
+// Фунуція для записання дданних у файл
 void input_file(Font& font, string& str) {
 
     string text;
@@ -96,6 +98,7 @@ void input_file(Font& font, string& str) {
     }
 }
 
+// Функція для надання данних із файлу
 void output_file(Font& font, string& text) {
 
     RenderWindow window(VideoMode(1700, 800),"Output file");
