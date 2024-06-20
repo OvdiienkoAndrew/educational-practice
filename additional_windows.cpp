@@ -26,7 +26,7 @@ void Random_function_settings_A_B(Font& font, string& A, string& B) {
     user_hint_B.setStyle(Text::Bold);
     user_hint_B.setPosition(5*user_hint_A.getLocalBounds().width, 100 + user_hint.getLocalBounds().height + user_hint_B.getLocalBounds().height);
 
-    // Створення білих прямокутників із чорною оболочкою візуального розуміння де буде текст та куди клікати, щоб його написати
+    // Створення білих прямокутників із чорною оболочкою, для візуального розуміння де буде текст та куди клікати, щоб його написати
     RectangleShape user_A_wright(Vector2f(15 * user_hint_A.getLocalBounds().width, user_hint_A.getLocalBounds().height)); 
     user_A_wright.setFillColor(Color::Transparent);
     user_A_wright.setFillColor(Color::White);
@@ -53,20 +53,16 @@ void Random_function_settings_A_B(Font& font, string& A, string& B) {
     // Створення прямокутної кнопки
     RectangleShape generate_button(Vector2f(150, 50));
     generate_button.setPosition((500 - generate_button.getLocalBounds().width)/2, (150 + user_hint.getLocalBounds().height + user_hint_B.getLocalBounds().height));
+    generate_button.setFillColor(Color::Transparent);
     generate_button.setFillColor(Color::White);
-
-    // Створення грані для кнопки
-    RectangleShape generate_button_border(Vector2f(150, 50));
-    generate_button_border.setPosition((500 - generate_button.getLocalBounds().width)/2, (150 + user_hint.getLocalBounds().height + user_hint_B.getLocalBounds().height));
-    generate_button_border.setOutlineThickness(2);
-    generate_button_border.setOutlineColor(Color::Black);
-    generate_button_border.setFillColor(Color::Transparent);
+    generate_button.setOutlineColor(Color::Black);
+    generate_button.setOutlineThickness(2);
 
     // Створення назви кнопки
     Text generate_button_text("Generate", font, 24);
     generate_button_text.setFillColor(Color::Black);
     generate_button_text.setOrigin(generate_button_text.getLocalBounds().left + generate_button_text.getLocalBounds().width / 2, generate_button_text.getLocalBounds().top + generate_button_text.getLocalBounds().height / 2);
-    generate_button_text.setPosition(generate_button_border.getPosition().x + generate_button_border.getSize().x / 2, generate_button_border.getPosition().y + generate_button_border.getSize().y / 2);
+    generate_button_text.setPosition(generate_button.getPosition().x + generate_button.getSize().x / 2, generate_button.getPosition().y + generate_button.getSize().y / 2);
     
     // Змінні для розрахункових дій
     float number_A = 0.0;
@@ -98,22 +94,22 @@ void Random_function_settings_A_B(Font& font, string& A, string& B) {
                 Vector2i mousePosition = Mouse::getPosition(window);
                 Vector2f mousePositionF(mousePosition.x, mousePosition.y);
 
-                // Якщо мишка коікнула в області вводу для значення А
+                // Якщо мишка клікнула в області вводу для значення А
                 if (user_A_wright.getGlobalBounds().contains(mousePositionF)) {
                     click_A = true;
                     click_B = false;
                     click_generate_button = false;
                 }
 
-                // Якщо мишка коікнула в області вводу для значення И
+                // Якщо мишка клікнула в області вводу для значення И
                 if (user_B_wright.getGlobalBounds().contains(mousePositionF)) {
                     click_A = false;
                     click_B = true;
                     click_generate_button = false;
                 }
 
-                // Якщо мишка коікнула в області кнопки генерації
-                if (generate_button.getGlobalBounds().contains(mousePositionF) || generate_button_border.getGlobalBounds().contains(mousePositionF) || generate_button_text.getGlobalBounds().contains(mousePositionF)) {
+                // Якщо мишка клікнула в області кнопки генерації
+                if (generate_button.getGlobalBounds().contains(mousePositionF) || generate_button_text.getGlobalBounds().contains(mousePositionF)) {
                     click_A = false;
                     click_B = false;
                     click_generate_button = true;
@@ -174,7 +170,6 @@ void Random_function_settings_A_B(Font& font, string& A, string& B) {
         window.draw(user_B_wright);
 
         window.draw(generate_button);
-        window.draw(generate_button_border); 
         window.draw(generate_button_text);
 
         window.draw(text_display_written_A);
@@ -234,21 +229,17 @@ void program_save(Font& font, string& text){
 
     // Створення прямокутної кнопки
     RectangleShape ok_button(Vector2f(100, 100));
-    ok_button.setFillColor(Color::White);
     ok_button.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
-
-    // Створення грані для кнопки
-    RectangleShape ok_button_border(Vector2f(100, 50));
-    ok_button_border.setFillColor(Color::Transparent);
-    ok_button_border.setOutlineColor(Color::Black);
-    ok_button_border.setOutlineThickness(2);
-    ok_button_border.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
+    ok_button.setFillColor(Color::Transparent);
+    ok_button.setFillColor(Color::White);
+    ok_button.setOutlineColor(Color::Black);
+    ok_button.setOutlineThickness(2);
 
     // Створення назви кнопки
     Text ok_button_text("OK", font, 24);
     ok_button_text.setFillColor(Color::Black);
     ok_button_text.setOrigin(ok_button_text.getLocalBounds().left + ok_button_text.getLocalBounds().width / 2, ok_button_text.getLocalBounds().top + ok_button_text.getLocalBounds().height / 2);
-    ok_button_text.setPosition(ok_button_border.getPosition().x + ok_button_border.getSize().x / 2, ok_button_border.getPosition().y + ok_button_border.getSize().y / 2);
+    ok_button_text.setPosition(ok_button.getPosition().x + ok_button.getSize().x / 2, ok_button.getPosition().y + ok_button.getSize().y / 2);
 
     // Змінна для перевірки натискання
     bool click_ok_button = false;
@@ -270,8 +261,8 @@ void program_save(Font& font, string& text){
                 Vector2i mousePosition = Mouse::getPosition(window);
                 Vector2f mousePositionF(mousePosition.x, mousePosition.y);
 
-                // Якщо мишка коікнула в області значення кнопки згоди
-                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_border.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
+                // Якщо мишка клікнула в області значення кнопки згоди
+                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
                     click_ok_button = true;
             }
         }
@@ -285,7 +276,6 @@ void program_save(Font& font, string& text){
         window.draw(Message);
 
         window.draw(ok_button);
-        window.draw(ok_button_border);
         window.draw(ok_button_text);
             
         window.display();
@@ -301,6 +291,7 @@ void program_open(Font& font, string& text){
 
     string str = "Program opened: " + text;
     
+    
     // Створення тексту для виводу на екран
     Text Message(str, font, 24);
     Message.setFillColor(Color::Black);
@@ -309,21 +300,17 @@ void program_open(Font& font, string& text){
 
     // Створення прямокутної кнопки
     RectangleShape ok_button(Vector2f(100, 100));
-    ok_button.setFillColor(Color::White);
     ok_button.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
-
-    // Створення грані для кнопки
-    RectangleShape ok_button_border(Vector2f(100, 50));
-    ok_button_border.setFillColor(Color::Transparent);
-    ok_button_border.setOutlineColor(Color::Black);
-    ok_button_border.setOutlineThickness(2);
-    ok_button_border.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
+    ok_button.setFillColor(Color::Transparent);
+    ok_button.setFillColor(Color::White);
+    ok_button.setOutlineColor(Color::Black);
+    ok_button.setOutlineThickness(2);
 
     // Створення назви кнопки
     Text ok_button_text("OK", font, 24);
     ok_button_text.setFillColor(Color::Black);
     ok_button_text.setOrigin(ok_button_text.getLocalBounds().left + ok_button_text.getLocalBounds().width / 2, ok_button_text.getLocalBounds().top + ok_button_text.getLocalBounds().height / 2);
-    ok_button_text.setPosition(ok_button_border.getPosition().x + ok_button_border.getSize().x / 2, ok_button_border.getPosition().y + ok_button_border.getSize().y / 2);
+    ok_button_text.setPosition(ok_button.getPosition().x + ok_button.getSize().x / 2, ok_button.getPosition().y + ok_button.getSize().y / 2);
 
     // Змінна для перевірки натискання
     bool click_ok_button = false;
@@ -345,8 +332,8 @@ void program_open(Font& font, string& text){
                 Vector2i mousePosition = Mouse::getPosition(window);
                 Vector2f mousePositionF(mousePosition.x, mousePosition.y);
 
-                // Якщо мишка коікнула в області значення кнопки згоди
-                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_border.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
+                // Якщо мишка клікнула в області значення кнопки згоди
+                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
                     click_ok_button = true;
             }
         }
@@ -360,7 +347,6 @@ void program_open(Font& font, string& text){
         window.draw(Message);
 
         window.draw(ok_button);
-        window.draw(ok_button_border);
         window.draw(ok_button_text);
             
         window.display();
@@ -384,21 +370,17 @@ void program_does_not_save(Font& font, string& text){
 
     // Створення прямокутної кнопки
     RectangleShape ok_button(Vector2f(100, 100));
-    ok_button.setFillColor(Color::White);
     ok_button.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
-
-    // Створення грані для кнопки
-    RectangleShape ok_button_border(Vector2f(100, 50));
-    ok_button_border.setFillColor(Color::Transparent);
-    ok_button_border.setOutlineColor(Color::Black);
-    ok_button_border.setOutlineThickness(2);
-    ok_button_border.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
+    ok_button.setFillColor(Color::Transparent);
+    ok_button.setFillColor(Color::White);
+    ok_button.setOutlineColor(Color::Black);
+    ok_button.setOutlineThickness(2);
 
     // Створення назви кнопки
     Text ok_button_text("OK", font, 24);
     ok_button_text.setFillColor(Color::Black);
     ok_button_text.setOrigin(ok_button_text.getLocalBounds().left + ok_button_text.getLocalBounds().width / 2, ok_button_text.getLocalBounds().top + ok_button_text.getLocalBounds().height / 2);
-    ok_button_text.setPosition(ok_button_border.getPosition().x + ok_button_border.getSize().x / 2, ok_button_border.getPosition().y + ok_button_border.getSize().y / 2);
+    ok_button_text.setPosition(ok_button.getPosition().x + ok_button.getSize().x / 2, ok_button.getPosition().y + ok_button.getSize().y / 2);
 
     // Змінна для перевірки натискання
     bool click_ok_button = false;
@@ -420,8 +402,8 @@ void program_does_not_save(Font& font, string& text){
                 Vector2i mousePosition = Mouse::getPosition(window);
                 Vector2f mousePositionF(mousePosition.x, mousePosition.y);
 
-                // Якщо мишка коікнула в області значення кнопки згоди
-                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_border.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
+                // Якщо мишка клікнула в області значення кнопки згоди
+                if (ok_button.getGlobalBounds().contains(mousePositionF)  || ok_button_text.getGlobalBounds().contains(mousePositionF))
                     click_ok_button = true;
             }
         }
@@ -435,7 +417,6 @@ void program_does_not_save(Font& font, string& text){
         window.draw(Message);
 
         window.draw(ok_button);
-        window.draw(ok_button_border);
         window.draw(ok_button_text);
             
         window.display();
@@ -459,21 +440,17 @@ void program_does_not_open(Font& font, string& text){
 
     // Створення прямокутної кнопки
     RectangleShape ok_button(Vector2f(100, 100));
-    ok_button.setFillColor(Color::White);
     ok_button.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
-
-    // Створення грані для кнопки
-    RectangleShape ok_button_border(Vector2f(100, 50));
-    ok_button_border.setFillColor(Color::Transparent);
-    ok_button_border.setOutlineColor(Color::Black);
-    ok_button_border.setOutlineThickness(2);
-    ok_button_border.setPosition((500 - ok_button.getLocalBounds().width)/2, (500 - Message.getLocalBounds().height)/2 + 3*Message.getLocalBounds().height );
+    ok_button.setFillColor(Color::Transparent);
+    ok_button.setFillColor(Color::White);
+    ok_button.setOutlineColor(Color::Black);
+    ok_button.setOutlineThickness(2);
 
     // Створення назви кнопки
     Text ok_button_text("OK", font, 24);
     ok_button_text.setFillColor(Color::Black);
     ok_button_text.setOrigin(ok_button_text.getLocalBounds().left + ok_button_text.getLocalBounds().width / 2, ok_button_text.getLocalBounds().top + ok_button_text.getLocalBounds().height / 2);
-    ok_button_text.setPosition(ok_button_border.getPosition().x + ok_button_border.getSize().x / 2, ok_button_border.getPosition().y + ok_button_border.getSize().y / 2);
+    ok_button_text.setPosition(ok_button.getPosition().x + ok_button.getSize().x / 2, ok_button.getPosition().y + ok_button.getSize().y / 2);
 
     // Змінна для перевірки натискання
     bool click_ok_button = false;
@@ -495,8 +472,8 @@ void program_does_not_open(Font& font, string& text){
                 Vector2i mousePosition = Mouse::getPosition(window);
                 Vector2f mousePositionF(mousePosition.x, mousePosition.y);
 
-                // Якщо мишка коікнула в області значення кнопки згоди
-                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_border.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
+                // Якщо мишка клікнула в області значення кнопки згоди
+                if (ok_button.getGlobalBounds().contains(mousePositionF) || ok_button_text.getGlobalBounds().contains(mousePositionF))
                     click_ok_button = true;
             }
         }
@@ -510,7 +487,6 @@ void program_does_not_open(Font& font, string& text){
         window.draw(Message);
 
         window.draw(ok_button);
-        window.draw(ok_button_border);
         window.draw(ok_button_text);
             
         window.display();
