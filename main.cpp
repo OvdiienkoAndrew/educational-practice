@@ -1036,7 +1036,7 @@ int main(){
             if(f_rand_x.isClicked())
             {
                 // Якщо щось не введено або змінено кількість точок і не сгенеровано функції- виводимо помилку
-                if(F_rand_.get_n()!=number_N || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
+                if(F_x_.get_n()!=number_N || text_assistant_N.empty() || number_N <= 0 || number_N > 100000) A_B_N_were_not_entered(font);
                 else{
                 if(F_rand_.show_function()) F_rand_.show_function(false);
                 else F_rand_.show_function(true);
